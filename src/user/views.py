@@ -23,7 +23,7 @@ def register():
         password = request.form.get('password', '').strip()
         gender = request.form.get('gender', '').strip()
         bio = request.form.get('bio', '').strip()
-        city = request.form.get('city', '').strip()
+        city = request.form.get('city')
         birthday = request.form.get('birthday', '').strip()
         avatar = request.files.get('avatar')
         user = User(

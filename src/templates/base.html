@@ -5,30 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>>{% block title %} 微博 {% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+    </style>
     {% block ext_css %}{% endblock %}
 </head>
 <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                      <li class="active"><a href="/">首页</a></li>
-                      <li><a href="#">个人信息</a></li>
-                      <li><a href="#">热门排行</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-
-        <div class="container">
-            <div class="row">
-
-                <div class="col-sm-8">
-                    {% block main %}{% endblock %}
-                </div>
-            </div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">微博</a>
         </div>
-    </body>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li {% if request.path == '/' %}class="active"{% endif %}>
+                    <a href="/">首页</a>
+                </li>
+                <li {% if request.path == '/weibo/post' %}class="active"{% endif %}>
+                    <a href="">发表微博</a>
+                </li>
+                <li><a href="#">热门排行</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if 'uid' in session %}
+                    <li {% if request.path == '/user/info' %}class="active"{% endif %}>
+                        <a href="/user/info">个人信息</a>
+                    </li>
+                    <li><a href="/user/logout">退出</a></li>
+                {% else %}
+                    <li><a href="/user/register">注册</a></li>
+                    <li><a href="/user/login">登陆</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-8">
+            {% block main %}{% endblock %}
+        </div>
+    </div>
+</div>
 </body>
+
 </html>

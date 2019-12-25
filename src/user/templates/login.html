@@ -5,11 +5,11 @@
     <h1>登陆</h1>
     <hr>
     {% if error %}
-        <div class="alert alert-danger alert-dismissible" role="'alert">
+        <div class="alert alert-danger alert-dismissible" role="alert">
             提示:{{ error }}
         </div>
     {% endif %}
-    <form class="form-horizontal" action="/login" method="POST">
+    <form class="form-horizontal" action="/user/login" method="POST">
         <div class="form-group">
             <label class="col-sm-2 control-label">昵称：</label>
             <div class="col-sm-5">

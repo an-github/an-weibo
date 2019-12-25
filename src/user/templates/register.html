@@ -5,11 +5,11 @@
     <h1>注册</h1>
     <hr>
     {% if error %}
-        <div class="alert alert-danger alert-dismissible" role="'alert">
+        <div class="alert alert-danger alert-dismissible" role="alert">
             提示:{{ error }}
         </div>
     {% endif %}
-    <form class="form-horizontal" action="/register" method="POST">
+    <form class="form-horizontal" action="/user/register" method="POST">
         <div class="form-group">
             <label class="col-sm-2 control-label">昵称：</label>
             <div class="col-sm-5">
@@ -28,10 +28,10 @@
             <label class="col-sm-2 control-label">性别：</label>
             <div class="col-sm-5">
                 <label class="radio-inline">
-                    <input class="radio" name="gender" value="male">男
+                    <input type="radio" name="gender" value="male">男
                 </label>
                 <label class="radio-inline">
-                    <input class="radio" name="gender" value="female">女
+                    <input type="radio" name="gender" value="female">女
                 </label>
 
             </div>
