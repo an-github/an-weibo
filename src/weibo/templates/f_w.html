@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-<title>首页</title>
+<title>关注</title>
 {% block ext_css %}
 <style>
     body {
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block main %}
-<h1>首页</h1>
+<h1>关注的微博</h1>
 
 {% for wb in wb_list %}
 <div class="row">
@@ -19,20 +19,13 @@
             <strong>{{ users[wb.uid] }}</strong>
         </a>：
     </div>
-
-    {% if 'uid' in session and session['uid'] == wb.uid %}
-    <div class="col-sm-2 text-right">
-        <a class="glyphicon glyphicon-pencil btn-default" href="/weibo/edit?wid={{ wb.id }}">编辑</a>
-        <a class="glyphicon glyphicon-trash btn-default" href="/weibo/delete?wid={{ wb.id }}">删除</a>
-    </div>
-    {% endif %}
 </div>
 <div class="alert alert-info" role="alert">
     {{ wb.content }}
 </div>
 
 <div class=".col-md-3 .col-md-offset-3 text-right">
-    <span style="color: #b2dba1">{{wb.created}}</span>
+
     <a class="btn glyphicon glyphicon-thumbs-up" href="/weibo/zan?wid={{ wb.id }}">
         {% if wb.id in zan_list %}已赞{% else %}赞{% endif %}
     </a>

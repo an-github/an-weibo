@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-<title>首页</title>
+<title>TOP50</title>
 {% block ext_css %}
 <style>
     body {
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block main %}
-<h1>首页</h1>
+<h1>微博TOP50</h1>
 
 {% for wb in wb_list %}
 <div class="row">
@@ -37,26 +37,10 @@
         {% if wb.id in zan_list %}已赞{% else %}赞{% endif %}
     </a>
     <span>{{ wb.n_zan }}</span>
-
     <a class="btn glyphicon glyphicon-search" href="/weibo/show?wid={{ wb.id }}">查看</a>
-
     <div>&nbsp;</div>
     <div>&nbsp;</div>
 </div>
 
 {% endfor %}
-
-
-<nav aria-label="Page navigation">
-    <ul class="pagination">
-        {% for p in range(n_page) %}
-        {% if loop.index == page %}
-        <li class="active"><a href="#">{{ loop.index }}</a></li>
-        {% else %}
-        <li><a href="/weibo?page={{ loop.index }}">{{ loop.index }}</a></li>
-        {% endif %}
-        {% endfor %}
-    </ul>
-</nav>
-
 {% endblock %}

@@ -1,6 +1,6 @@
 import os
 from flask import session
-from flask import redirect
+from flask import render_template
 from functools import wraps
 
 
@@ -10,11 +10,11 @@ def save_avatar(nickname, avatar_file):
     avatar_file.save(file_path)
 
 
-def login_required(views_func):
-    @wraps(views_func)
+def login_required(view_func):
+    @wraps(view_func)
     def check(*args, **kwargs):
         if 'uid' in session:
-            return views_func(*args, **kwargs)
+            return view_func(*args, **kwargs)
         else:
-            return redirect('login.html')
+            return render_template('login.html', error='请您先登录')
     return check

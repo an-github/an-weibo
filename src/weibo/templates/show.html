@@ -1,25 +1,63 @@
 {% extends "base.html" %}
-
-{% block content %}
+<title>查看微博</title>
+{% block main %}
+<h1>查看微博</h1>
 
     <h3> {{ user.nickname }} ：</h3>
 
     <div class="alert alert-info" role="alert">
         {{ weibo.content }}
     </div>
+    <div class=".col-md-3 .col-md-offset-3 text-right">
+    <span style="color: #b2dba1">{{weibo.created}}</span>
+    <a class="btn glyphicon glyphicon-thumbs-up" href="/weibo/zan?wid={{ weibo.id }}">
+        {% if weibo.id in zan_list %}已赞{% else %}赞{% endif %}
+    </a>
+    <span>{{ weibo.n_zan }}</span>
+    </div>
+    <div class="col-sm-12">
+        <form class="form" action="/comment/post" method="POST">
+            <div class="form-group">
+                <label></label>
+                <div class="text-right">
+                    <textarea class="form-control" name="content" rows="3" placeholder="请在此评论"></textarea>
+                </div>
+            </div>
 
-    <div class="text-right">
-        <span style="color: gray;">{{ weibo.updated }}</span>
-        {% if 'uid' in session and session['uid'] == weibo.uid %}
-            <a href="/weibo/edit?wid={{ weibo.id }}">编辑</a>
-            <a href="/weibo/delete?wid={{ weibo.id }}">删除</a>
-        {% endif %}
+            <input type="hidden" name="wid" value="{{ weibo.id }}">
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary btn-sm">发表评论</button>
+            </div>
+        </form>
     </div>
 
-    <hr>
-
-    <div class="text-right">
-        <span class="label label-primary">点赞</span>
-        <span class="label label-warning">评论</span>
+    {% for cmt_id, cmt in comments.items() %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/user/info?uid={{ cmt.uid }}">
+                <span class="text-info">{{ cmt_users[cmt.uid] }}</span>:
+            </a>
+                <span class="text-info">{{ cmt.content }}</span>
+        </div>
     </div>
+    {% endfor %}
 {% endblock %}
+
+
+{% block sidebar %}
+    <div class="jumbotron">
+        <img class="img-rounded" src="{{ user.avatar }}" width="230">
+        <br>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item item">昵称：{{ user.nickname }}</li>
+            <li class="list-group-item item">性别：{{ user.gender }}</li>
+            <li class="list-group-item item">生日：{{ user.birthday }}</li>
+            <li class="list-group-item item">城市：{{ user.city }}</li>
+            <li class="list-group-item item">简介：{{ user.bio }}</li>
+            <li class="list-group-item item">创建日期：{{ user.created }}</li>
+        </ul>
+    </div>
+
+{% endblock %}
+
